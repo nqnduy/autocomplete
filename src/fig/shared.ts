@@ -173,32 +173,3 @@ export const settingsSpecGenerator: Fig.Subcommand["generateSpec"] = async (
   };
 };
 export default {};
-
-type FigBaseObject = { name?: string | string[] | undefined };
-type MaybeObject<T> = T | T[] | undefined;
-type Editor<T> = ((things: T) => void) | Partial<T>;
-
-function toArray<T>(arr: T | T[]): T[] {
-  return Array.isArray(arr) ? arr : [arr];
-}
-
-/** Edit an object by looking up the name */
-export function edit<T extends { name?: string | string[] | undefined }>(
-  objects: MaybeObject<T>,
-  editors: Record<string, Editor<T>>
-) {
-  if (objects === undefined) return;
-  for (const object of toArray(objects)) {
-    if (object.name === undefined) continue;
-    for (const name of toArray(object.name)) {
-      if (name in editors) {
-        const editor = editors[name];
-        if (typeof editor === "function") {
-          editor(object);
-        } else {
-          Object.assign(object, editor);
-        }
-      }
-    }
-  }
-}
