@@ -856,6 +856,16 @@ const completionSpec: Fig.Spec = {
           description: "Use the given message as the commit message",
           args: {
             name: "message",
+            suggestions: [
+              {
+                name: "feat: ",
+                insertValue: "'feat: {cursor}'",
+              },
+              {
+                name: "fix: ",
+                insertValue: "'fix: {cursor}'",
+              },
+            ],
           },
         },
         {
@@ -6143,6 +6153,30 @@ const completionSpec: Fig.Spec = {
       insertValue: "commit -m '{cursor}'",
       icon: "fig://template?color=2ecc71&badge=🔥",
       // type: "shortcut",
+    },
+    {
+      name: "stash, pull, pop",
+      description: "Git stash, pull, and pip shortcut",
+      insertValue: "stash; git pull; git stash pop",
+      type: "shortcut",
+    },
+    {
+      name: "add, commit, & push",
+      description: "Git add, commit, and push shortcut",
+      insertValue: "commit -a --allow-empty-message -m ''; git push;",
+      type: "shortcut",
+    },
+    {
+      name: "undo most recent commit",
+      description: "Git commit shortcut",
+      insertValue: "reset --soft HEAD~1",
+      type: "shortcut",
+    },
+    {
+      name: "log (pretty print)",
+      insertValue:
+        "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all",
+      description: "Pretty print git log",
     },
   ],
 };
